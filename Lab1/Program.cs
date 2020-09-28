@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lab1
+namespace MyDictionary
 {
 	class Program
 	{

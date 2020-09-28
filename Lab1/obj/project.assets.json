@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "MyDictionary/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/MyDictionary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MyDictionary.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "MyDictionary/1.0.0": {
+      "type": "project",
+      "path": "../MyDictionary/MyDictionary.csproj",
+      "msbuildProject": "../MyDictionary/MyDictionary.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "MyDictionary >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Володимир\\.nuget\\packages\\": {},
@@ -37,7 +56,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Володимир\\source\\repos\\Lab1\\MyDictionary\\MyDictionary.csproj": {
+              "projectPath": "C:\\Users\\Володимир\\source\\repos\\Lab1\\MyDictionary\\MyDictionary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
