@@ -5,3 +5,5 @@
 Lab1.sln
 Lab1/bin/
 Lab1/obj/
+.axoCover/
+TestResults/

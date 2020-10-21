@@ -1,8 +1,0 @@
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\bin\Debug\netcoreapp3.1\MyDictionary.deps.json
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\bin\Debug\netcoreapp3.1\MyDictionary.dll
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\bin\Debug\netcoreapp3.1\MyDictionary.pdb
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\obj\Debug\netcoreapp3.1\MyDictionary.AssemblyInfoInputs.cache
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\obj\Debug\netcoreapp3.1\MyDictionary.AssemblyInfo.cs
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\obj\Debug\netcoreapp3.1\MyDictionary.csproj.CoreCompileInputs.cache
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\obj\Debug\netcoreapp3.1\MyDictionary.dll
-C:\Users\Володимир\source\repos\Lab1\MyDictionary\obj\Debug\netcoreapp3.1\MyDictionary.pdb

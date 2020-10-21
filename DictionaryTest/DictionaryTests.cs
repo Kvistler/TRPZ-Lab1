@@ -1,7 +1,7 @@
-﻿using DictionaryTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Dictionary.Tests
 {
@@ -134,12 +134,13 @@ namespace Dictionary.Tests
 
 
 			Dictionary.Add(defaultkey, defaultvalue);
-			Dictionary.CopyTo(arrayActual, 0);
+			Dictionary.CopyTo(arrayActual);
 
 			CollectionAssert.AreEqual(arrayExpected, arrayActual);
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(IndexOutOfRangeException))]
 		public void CopyTo_SmallArray_Exception()
 		{
 			var arrayExpected = new KeyValuePair<int, string>[1]
@@ -151,7 +152,45 @@ namespace Dictionary.Tests
 			Dictionary.Add(1, defaultvalue);
 			Dictionary.Add(2, defaultvalue);
 
-			Assert.ThrowsException<IndexOutOfRangeException>(() => Dictionary.CopyTo(arrayActual, 0));
+			Dictionary.CopyTo(arrayActual);
+			//Assert.ThrowsException<IndexOutOfRangeException>(() => Dictionary.CopyTo(arrayActual, 0));
+		}
+
+		[TestMethod]
+		public void Event_Add_Invoked()
+		{
+			Dictionary.Notify += eventInvoked;
+			Dictionary.Add(defaultkey, defaultvalue);
+
+			void eventInvoked(string _)
+			{
+				Assert.IsTrue(true);
+			}
+		}
+
+		[TestMethod]
+		public void Event_Remove_Invoked()
+		{
+			Dictionary.Notify += eventInvoked;
+			Dictionary.Add(defaultkey, defaultvalue);
+			Dictionary.Remove(defaultkey);
+
+			void eventInvoked(string _)
+			{
+				Assert.IsTrue(true);
+			}
+		}
+
+		[TestMethod]
+		public void Event_Clear_Invoked()
+		{
+			Dictionary.Notify += eventInvoked;
+			Dictionary.Clear();
+
+			void eventInvoked(string _)
+			{
+				Assert.IsTrue(true);
+			}
 		}
 	}
 }

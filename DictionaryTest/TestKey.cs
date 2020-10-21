@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DictionaryTest
+namespace Dictionary.Tests
 {
 	internal class TestKey<TFirst, TSecond>
 	{

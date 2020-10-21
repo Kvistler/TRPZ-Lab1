@@ -148,7 +148,7 @@ namespace Dictionary
 				current = current.Next;
 			}
 		}
-		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex = 0)
 		{
 			KeyValueNode<TKey, TValue> current = head;
 			int i = arrayIndex;
@@ -159,7 +159,7 @@ namespace Dictionary
 				i++;
 			}
 		}
-		public void CopyTo(Array array, int index)
+		public void CopyTo(Array array, int index = 0)
 		{
 			CopyTo((KeyValuePair<TKey, TValue>[])array, index);
 		}
