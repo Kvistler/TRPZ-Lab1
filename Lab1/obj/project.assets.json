@@ -2,28 +2,28 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "MyDictionary/1.0.0": {
+      "Dictionary/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
+        "framework": ".NETStandard,Version=v2.0",
         "compile": {
-          "bin/placeholder/MyDictionary.dll": {}
+          "bin/placeholder/Dictionary.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MyDictionary.dll": {}
+          "bin/placeholder/Dictionary.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "MyDictionary/1.0.0": {
+    "Dictionary/1.0.0": {
       "type": "project",
-      "path": "../MyDictionary/MyDictionary.csproj",
-      "msbuildProject": "../MyDictionary/MyDictionary.csproj"
+      "path": "../NewDictionary/Dictionary.csproj",
+      "msbuildProject": "../NewDictionary/Dictionary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "MyDictionary >= 1.0.0"
+      "Dictionary >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -57,8 +57,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Володимир\\source\\repos\\Lab1\\MyDictionary\\MyDictionary.csproj": {
-              "projectPath": "C:\\Users\\Володимир\\source\\repos\\Lab1\\MyDictionary\\MyDictionary.csproj"
+            "C:\\Users\\Володимир\\source\\repos\\Lab1\\NewDictionary\\Dictionary.csproj": {
+              "projectPath": "C:\\Users\\Володимир\\source\\repos\\Lab1\\NewDictionary\\Dictionary.csproj"
             }
           }
         }

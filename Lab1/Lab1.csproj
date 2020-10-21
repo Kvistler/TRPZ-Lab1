@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyDictionary\MyDictionary.csproj" />
+    <ProjectReference Include="..\NewDictionary\Dictionary.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,3 +11,6 @@ C:\Users\Володимир\source\repos\Lab1\Lab1\obj\Debug\netcoreapp3.1\Lab1.
 C:\Users\Володимир\source\repos\Lab1\Lab1\obj\Debug\netcoreapp3.1\Lab1.dll
 C:\Users\Володимир\source\repos\Lab1\Lab1\obj\Debug\netcoreapp3.1\Lab1.pdb
 C:\Users\Володимир\source\repos\Lab1\Lab1\obj\Debug\netcoreapp3.1\Lab1.genruntimeconfig.cache
+C:\Users\Володимир\source\repos\Lab1\Lab1\obj\Debug\netcoreapp3.1\Lab1.csproj.CopyComplete
+C:\Users\Володимир\source\repos\Lab1\Lab1\bin\Debug\netcoreapp3.1\Dictionary.dll
+C:\Users\Володимир\source\repos\Lab1\Lab1\bin\Debug\netcoreapp3.1\Dictionary.pdb

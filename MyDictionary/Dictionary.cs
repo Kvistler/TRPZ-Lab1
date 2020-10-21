@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace MyDictionary
 {
@@ -11,17 +10,26 @@ namespace MyDictionary
 		public delegate void EventHandler(string message);
 		public event EventHandler Notify;
 
-		private KeyValuePair<TKey, TValue>[] record = new KeyValuePair<TKey, TValue>[500];
+		KeyValueNode<TKey, TValue> head;
+		KeyValueNode<TKey, TValue> tail;
+
+		public int Count { get; private set; }
+		public bool IsReadOnly { get; } = false;
+		public IEqualityComparer<TKey> Comparer { get; private set; } = EqualityComparer<TKey>.Default;
+
+		public ICollection<TKey> Keys { get; } = new List<TKey>();
+		public ICollection<TValue> Values { get; } = new List<TValue>();
+
 		public TValue this[TKey key]
 		{
 			get
 			{
-				for (int i = 0; i < Count; i++)
+				KeyValueNode<TKey, TValue> current = head;
+				while (current != null)
 				{
-					if (Comparer.Equals(key, record[i].Key))
-					{
-						return record[i].Value;
-					}
+					if (Comparer.Equals(current.Data.Key, key))
+						return current.Data.Value;
+					current = current.Next;
 				}
 				throw new KeyNotFoundException();
 			}
@@ -31,12 +39,6 @@ namespace MyDictionary
 			}
 		}
 
-		public int Count { get; private set; } = 0;
-		public ICollection<TKey> Keys { get; } = new List<TKey>();
-		public ICollection<TValue> Values { get; } = new List<TValue>();
-		public IEqualityComparer<TKey> Comparer { get; private set; } = EqualityComparer<TKey>.Default;
-		public bool IsReadOnly { get; } = false;
-
 		public Dictionary()
 		{
 		}
@@ -45,90 +47,126 @@ namespace MyDictionary
 			Comparer = equalityComparer;
 		}
 
-		public bool ContainsKey(TKey key)
+		public void Add(KeyValuePair<TKey, TValue> data)
 		{
-			for (int i = 0; i < Count; i++)
+			KeyValueNode<TKey, TValue> node = new KeyValueNode<TKey, TValue>(data);
+			if (!Contains(data))
 			{
-				if (Comparer.Equals(record[i].Key, key))
-					return true;
-			}
-			return false;
-		}
-		public void Add(TKey key, TValue value)
-		{
-			if (!ContainsKey(key))
-			{
-				record[Count] = new KeyValuePair<TKey, TValue>(key, value);
+				if (head == null)
+					head = node;
+				else
+					tail.Next = node;
+				tail = node;
 				Count++;
-				Keys.Add(key);
-				Values.Add(value);
-				Notify?.Invoke($"Added key {key}, value {value}");
+				Keys.Add(data.Key);
+				Values.Add(data.Value);
+				Notify?.Invoke($"Added key {data.Key}, value {data.Value}");
 			}
 			else
 			{
-				throw new ArgumentException($"Key {key} is already in the dictionary");
+				throw new ArgumentException($"Key {data.Key} is already in the dictionary");
 			}
 		}
-		public void Add(KeyValuePair<TKey, TValue> item)
+		public void Add(TKey key, TValue value)
 		{
-			Add(item.Key, item.Value);
+			Add(new KeyValuePair<TKey, TValue>(key, value));
+		}
+		public bool Remove(KeyValuePair<TKey, TValue> data)
+		{
+			return Remove(data.Key);
 		}
 		public bool Remove(TKey key)
 		{
-			for (int i = 0; i < Count; i++)
+			KeyValueNode<TKey, TValue> current = head;
+			KeyValueNode<TKey, TValue> previous = null;
+
+			while (current != null)
 			{
-				if (Comparer.Equals(record[i].Key, key))
+				if (Comparer.Equals(current.Data.Key, key))
 				{
-					Keys.Remove(key);
-					Values.Remove(record[i].Value);
-					Notify?.Invoke($"Removed key {key}, value {record[i].Value}");
-					record = record.Where(val => !Comparer.Equals(val.Key, key)).ToArray();
+					if (previous != null)
+					{
+						previous.Next = current.Next;
+						if (current.Next == null)
+							tail = previous;
+					}
+					else
+					{
+						head = head.Next;
+						if (head == null)
+							tail = null;
+					}
 					Count--;
+					Values.Remove(this[key]);
+					Keys.Remove(key);
+					Notify?.Invoke($"Removed key {key}, value {this[key]}");
 					return true;
 				}
+
+				previous = current;
+				current = current.Next;
 			}
 			return false;
 		}
-		public bool Remove(KeyValuePair<TKey, TValue> item)
-		{
-			return Remove(item.Key);
-		}
 		public void Clear()
 		{
-			record = new KeyValuePair<TKey, TValue>[500];
+			head = null;
+			tail = null;
 			Count = 0;
 			Keys.Clear();
 			Values.Clear();
 			Notify?.Invoke($"Dictionary cleared");
 		}
-		public bool Contains(KeyValuePair<TKey, TValue> item)
+		public bool Contains(KeyValuePair<TKey, TValue> data)
 		{
-			return ContainsKey(item.Key);
+			return ContainsKey(data.Key);
 		}
-		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+		public bool ContainsKey(TKey key)
 		{
-			for (int i = arrayIndex; i < Count + arrayIndex; i++)
+			KeyValueNode<TKey, TValue> current = head;
+			while (current != null)
 			{
-				array[i] = record[i];
+				if (Comparer.Equals(current.Data.Key, key))
+					return true;
+				current = current.Next;
+			}
+			return false;
+		}
+		IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
+		{
+			KeyValueNode<TKey, TValue> current = head;
+			while (current != null)
+			{
+				yield return current.Data;
+				current = current.Next;
 			}
 		}
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return record.GetEnumerator();
+			return ((IEnumerable)this).GetEnumerator();
 		}
-		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
 		{
-			return GetEnumerator();
+			KeyValueNode<TKey, TValue> current = head;
+			int i = arrayIndex;
+			while (current != null && i < Count + arrayIndex)
+			{
+				array[i] = current.Data;
+				current = current.Next;
+				i++;
+			}
 		}
 		public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
 		{
-			for (int i = 0; i < Count; i++)
+			KeyValueNode<TKey, TValue> current = head;
+			while (current != null)
 			{
-				if (Comparer.Equals(record[i].Key, key))
+				if (Comparer.Equals(current.Data.Key, key))
 				{
-					value = record[i].Value;
+					value = current.Data.Value;
 					return true;
 				}
+				current = current.Next;
 			}
 			throw new KeyNotFoundException();
 		}

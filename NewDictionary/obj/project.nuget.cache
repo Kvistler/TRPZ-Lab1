@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "TWSbuhg+pdWYsl2iAlTOw8SneOwWVNbNRj4IKl+p0JtgTCIUG5muvYVQxeOEyeyLxWz1px+DwmP09sVNd42XNA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Володимир\\source\\repos\\Lab1\\NewDictionary\\Dictionary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Володимир\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Володимир\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

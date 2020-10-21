@@ -1,34 +1,40 @@
 ﻿using System.Collections.Generic;
 
-namespace MyDictionary
+namespace Lab1
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			var dictionary = new Dictionary<int, string>();
-			var dictionaryOf = new System.Collections.Generic.Dictionary<int, string>();
+			var dictionary = new Dictionary.Dictionary<int, string>();
 			dictionary.Notify += DisplayMessage;
 
-			dictionary.Add(5, "sssssss");
-			System.Console.WriteLine(dictionary.Count);
-			dictionary.Remove(5);
-			System.Console.WriteLine(dictionary.Count);
-			dictionary.Clear();
-			dictionary.Add(77, "aaaaaaaa");
-			dictionary.Add(new KeyValuePair<int, string>(44, "qweqwe"));
-			System.Console.WriteLine(dictionary.Count);
-			System.Console.WriteLine(dictionary[44]);
-			dictionary[78] = "asdqqqqqq";
-			System.Console.WriteLine(dictionary.Count + "\n" + dictionary[78]);
-
-
-			var dictionaryList = new DictionaryList<int, string>();
-			dictionary.Notify += DisplayMessage;
-
-			dictionaryList.Add(55, "asdasdad");
+			dictionary.Add(55, "asdasdad");
 			System.Console.WriteLine("\n");
-			System.Console.WriteLine(dictionaryList[55]);
+			System.Console.WriteLine(dictionary[55]);
+			dictionary.Remove(55);
+
+			var list = dictionary.Keys;
+			System.Console.WriteLine(list.Contains(55));
+
+			System.Console.WriteLine();
+			System.Console.WriteLine();
+
+			dictionary.Add(1, "111");
+			dictionary.Add(2, "222");
+			dictionary.Add(3, "333");
+			KeyValuePair<int, string>[] array = {
+				new KeyValuePair<int, string>(5, "555"),
+				new KeyValuePair<int, string>(6, "555"),
+				new KeyValuePair<int, string>(7, "555"),
+			};
+
+			dictionary.CopyTo(array, 1);
+
+			foreach (var item in array)
+			{
+				System.Console.WriteLine(item);
+			}
 		}
 		static void DisplayMessage(string message)
 		{

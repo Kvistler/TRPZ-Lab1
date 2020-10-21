@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
-namespace MyDictionary
+namespace Dictionary
 {
-	public class DictionaryList<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>
+	public class Dictionary<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>
 	{
 		public delegate void EventHandler(string message);
 		public event EventHandler Notify;
@@ -13,9 +12,7 @@ namespace MyDictionary
 		KeyValueNode<TKey, TValue> head;
 		KeyValueNode<TKey, TValue> tail;
 
-		int count;
-		public int Count { get { return count; } }
-		public bool IsEmpty { get { return count == 0; } }
+		public int Count { get; private set; }
 		public bool IsReadOnly { get; } = false;
 		public IEqualityComparer<TKey> Comparer { get; private set; } = EqualityComparer<TKey>.Default;
 
@@ -41,10 +38,10 @@ namespace MyDictionary
 			}
 		}
 
-		public DictionaryList()
+		public Dictionary()
 		{
 		}
-		public DictionaryList(IEqualityComparer<TKey> equalityComparer)
+		public Dictionary(IEqualityComparer<TKey> equalityComparer)
 		{
 			Comparer = equalityComparer;
 		}
@@ -59,7 +56,7 @@ namespace MyDictionary
 				else
 					tail.Next = node;
 				tail = node;
-				count++;
+				Count++;
 				Keys.Add(data.Key);
 				Values.Add(data.Value);
 				Notify?.Invoke($"Added key {data.Key}, value {data.Value}");
@@ -98,7 +95,7 @@ namespace MyDictionary
 						if (head == null)
 							tail = null;
 					}
-					count--;
+					Count--;
 					Keys.Remove(key);
 					Values.Remove(this[key]);
 					Notify?.Invoke($"Removed key {key}, value {this[key]}");
@@ -114,7 +111,7 @@ namespace MyDictionary
 		{
 			head = null;
 			tail = null;
-			count = 0;
+			Count = 0;
 			Keys.Clear();
 			Values.Clear();
 			Notify?.Invoke($"Dictionary cleared");
@@ -134,10 +131,6 @@ namespace MyDictionary
 			}
 			return false;
 		}
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return ((IEnumerable)this).GetEnumerator();
-		}
 		IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
 		{
 			KeyValueNode<TKey, TValue> current = head;
@@ -147,18 +140,22 @@ namespace MyDictionary
 				current = current.Next;
 			}
 		}
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return ((IEnumerable)this).GetEnumerator();
+		}
 		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
 		{
 			KeyValueNode<TKey, TValue> current = head;
 			int i = arrayIndex;
-			while (current != null && i < count + arrayIndex)
+			while (current != null && i < Count + arrayIndex)
 			{
 				array[i] = current.Data;
 				current = current.Next;
 				i++;
 			}
 		}
-		public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out TValue value)
+		public bool TryGetValue(TKey key, out TValue value)
 		{
 			KeyValueNode<TKey, TValue> current = head;
 			while (current != null)

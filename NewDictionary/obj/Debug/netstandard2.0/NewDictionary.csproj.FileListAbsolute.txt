@@ -1,0 +1,9 @@
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\bin\Debug\netstandard2.0\NewDictionary.deps.json
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\bin\Debug\netstandard2.0\NewDictionary.dll
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\bin\Debug\netstandard2.0\NewDictionary.pdb
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\obj\Debug\netstandard2.0\NewDictionary.csprojAssemblyReference.cache
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\obj\Debug\netstandard2.0\NewDictionary.AssemblyInfoInputs.cache
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\obj\Debug\netstandard2.0\NewDictionary.AssemblyInfo.cs
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\obj\Debug\netstandard2.0\NewDictionary.csproj.CoreCompileInputs.cache
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\obj\Debug\netstandard2.0\NewDictionary.dll
+C:\Users\Володимир\source\repos\Lab1\NewDictionary\obj\Debug\netstandard2.0\NewDictionary.pdb
