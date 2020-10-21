@@ -13,13 +13,13 @@ namespace Dictionary
 		KeyValueNode<TKey, TValue> tail;
 
 		public int Count { get; private set; }
-		public bool IsReadOnly { get; } = false;
 		public IEqualityComparer<TKey> Comparer { get; private set; } = EqualityComparer<TKey>.Default;
 
 		public ICollection<TKey> Keys { get; } = new List<TKey>();
 		public ICollection<TValue> Values { get; } = new List<TValue>();
 
 		public bool IsSynchronized { get; } = false;
+		public bool IsReadOnly { get; } = false;
 		public object SyncRoot { get; }
 
 		public TValue this[TKey key]

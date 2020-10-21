@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Dictionary.Tests
 {
@@ -9,8 +8,8 @@ namespace Dictionary.Tests
 	public class DictionaryTests
 	{
 		private Dictionary<int, string> Dictionary { get; set; }
-		private int defaultkey = 0;
-		private string defaultvalue = "";
+		private static int defaultkey = 0;
+		private static string defaultvalue = "";
 
 		[TestInitialize]
 		public void TestInitialize()
@@ -152,8 +151,8 @@ namespace Dictionary.Tests
 			Dictionary.Add(1, defaultvalue);
 			Dictionary.Add(2, defaultvalue);
 
-			Dictionary.CopyTo(arrayActual);
 			//Assert.ThrowsException<IndexOutOfRangeException>(() => Dictionary.CopyTo(arrayActual, 0));
+			Dictionary.CopyTo(arrayActual);
 		}
 
 		[TestMethod]
@@ -191,6 +190,22 @@ namespace Dictionary.Tests
 			{
 				Assert.IsTrue(true);
 			}
+		}
+
+		[TestMethod]
+		public void Keys_AddValue_True()
+		{
+			Dictionary.Add(defaultkey, defaultvalue);
+
+			Assert.IsTrue(Dictionary.Keys.Contains(defaultkey));
+		}
+
+		[TestMethod]
+		public void Values_AddValue_True()
+		{
+			Dictionary.Add(defaultkey, defaultvalue);
+
+			Assert.IsTrue(Dictionary.Values.Contains(defaultvalue));
 		}
 	}
 }
